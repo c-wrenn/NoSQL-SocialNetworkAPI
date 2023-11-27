@@ -4,16 +4,20 @@ getUsers,
 updateUser,
 SingleUser,
 createUser,
+deleteUser,
+newFriend,
+removeFriend
 
 } = require('../../controllers/userController');
-
+// GET all users & POST a new user
 router.route("/").get(getUsers).post(createUser)
-router.route("/")
+// GET a single user by its _id and populated thought and friend data
+// PUT to update a user by its _id
+// DELETE to remove user by its _id
+router.route("/:userId").get(SingleUser).put(updateUser).delete(removeUser)
 
-
-//POST to add a new friend to a user's friend list
-
+///api/users/:userId/friends/:friendId
+//POST to add a new friend to a user's friend list & DELETE to remove a friend from a user's friend list
+router.route("/:userId/friends/:friendId").post(newFriend).delete(removeFriend);
 //DELETE to remove a friend from a user's friend list
-
-
-router.route('/api/users/:userId/friends/:friendId').post(addnewFriend).delete(removeFriend)
+router.route('/api/users/:userId/friends/:friendId').post(newFriend).delete(removeFriend)
