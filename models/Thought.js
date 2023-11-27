@@ -29,8 +29,8 @@ const thoughtSchema = new mongoose.Schema(
     id: false,
   });
 
-
-reactionSchema = new mongoose.Schema(
+// define Reaction Schema
+const reactionSchema = new mongoose.Schema(
     {
         reactionId: {
             type: Schema.Types.ObjectId,
