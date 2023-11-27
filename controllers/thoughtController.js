@@ -29,6 +29,17 @@ module.exports = {
   async createnewThoughts(req, res) {
     try {
       const thought = await Thought.create(req.body);
+
+      // const user = await User.findOneAndUpdate(
+      //   { _id: req.body.userId },
+      //   { $addToSet: { thoughts: thought._id } },
+      //   { new: true }
+      // );
+      // if (!user) {
+      //   return res
+      //     .status(404)
+      //     .json({ message: 'Post created, but found no user with that ID' });
+      // }
       res.json(thought);
     } catch (err) {
       res.status(500).json(err);

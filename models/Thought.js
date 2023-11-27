@@ -1,4 +1,10 @@
-const thoughtSchema = new mongoose.Schema(
+const { ObjectId } =require('mongoose').Types;
+const { Schema, model } = require('mongoose');
+
+// Importing dayjs
+const dayjs = require("dayjs");
+
+const thoughtSchema = new Schema(
     {
     thoughtText: { 
         type: String,
@@ -30,7 +36,7 @@ const thoughtSchema = new mongoose.Schema(
   });
 
 // define Reaction Schema
-const reactionSchema = new mongoose.Schema(
+const reactionSchema = new Schema(
     {
         reactionId: {
             type: Schema.Types.ObjectId,

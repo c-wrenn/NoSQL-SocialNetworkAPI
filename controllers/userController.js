@@ -36,4 +36,53 @@ module.exports = {
     }
   },
   //update user
+
+
+
+
+//delete user by its id
+async deleteUser(req, res) {
+  try {
+    const removeUser = await User.findOneAndRemove({ _id: req.params.userId });
+    res.json(removeUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+},
+//newFriend
+async newFriend (req,res) {
+  try {
+    
+    const currentUser = await User.findById({_id: req.params.userId});
+    const addedFriend = await User.findById({_id: req.params.friendId});
+    // push new friend
+    currentUser.friends.push(addedFriend);
+
+    await currentUser.save();
+
+    res.json(currentUser);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+},
+//removeFriend
+async removeFriend (req, res) {
+  try {
+    const ourUser = await User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: req.params.friendId } },
+      { runValidators: true, new: true }
+    );
+    if (!ourUser) {
+      return res
+        .status(404)
+        .json({ message: "Cannot find user!" });
+    }
+
+    res.json(ourUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+},
+
 };
