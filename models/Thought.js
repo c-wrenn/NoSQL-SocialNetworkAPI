@@ -4,6 +4,34 @@ const { Schema, model } = require('mongoose');
 // Importing dayjs
 const dayjs = require("dayjs");
 
+// define Reaction Schema
+const reactionSchema = new Schema(
+    {
+        reactionId: {
+            type: Schema.Types.ObjectId,
+            default: new ObjectId(),
+        },
+        reactionBody: {
+            type: String,
+            required: true,
+            maxlength: 280,
+        },
+        username: {
+            type: String,
+            required: true,
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: function (timestamp) {
+                return moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
+        },
+    },
+}
+);
+
+
+
 const thoughtSchema = new Schema(
     {
     thoughtText: { 
@@ -35,31 +63,8 @@ const thoughtSchema = new Schema(
     id: false,
   });
 
-// define Reaction Schema
-const reactionSchema = new Schema(
-    {
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            default: new ObjectId(),
-        },
-        reactionBody: {
-            type: String,
-            required: true,
-            maxlength: 280,
-        },
-        username: {
-            type: String,
-            required: true,
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            get: function (timestamp) {
-                return moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
-        },
-    },
-}
-);
+
+
 //virtual for reaction
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
