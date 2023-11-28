@@ -36,7 +36,17 @@ module.exports = {
     }
   },
   //update user
-
+  async updateUser (req, res){
+    try {
+      /// find the user with the search parameters and update the user with the new request
+      const userData = await User.findOneAndUpdate(
+        {_id: req.params.userId}, 
+        req.body, { new: true });
+      res.json(userData);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
 
 
 

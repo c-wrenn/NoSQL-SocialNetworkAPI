@@ -4,7 +4,6 @@
 
 This is a Social Networking project. Users can post, delete, and update thoughts. Users can add reactions to thoughts.
 
-## Table of Contents
 
 
 ## Usage

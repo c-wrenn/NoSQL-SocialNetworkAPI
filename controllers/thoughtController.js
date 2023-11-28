@@ -15,7 +15,7 @@ module.exports = {
   //get a Single Thought using id
   async getSingleThought(req, res) {
     try {
-      const singleThought = await Thought.findOne({ _id: req.params.userId });
+      const singleThought = await Thought.findOne({ _id: req.params.thoughtId });
       if (!singleThought) {
         return res.status(404).json({ message: "No thought found with that ID" });
       }
@@ -51,7 +51,7 @@ module.exports = {
   //delete thought by id
 async deleteThought(req, res) {
     try {
-      const deleteThoughts = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
+      const deleteThoughts = await Thought.findOne({ _id: req.params.thoughtId });
       if (!deleteThoughts) {
         return res.status(404).json({ message: "No thought found with that ID to delete!" });
       }
@@ -66,7 +66,7 @@ async deleteThought(req, res) {
     try {
       const findThoughtId = req.params.thoughtId;
 
-      const targetThought = await thoughtModel.findById(findThoughtId);
+      const targetThought = await Thought.findById(findThoughtId);
 //If it is not the targeted thought send error
       if (!targetThought) {
         return res.status(404).json({ message: "No Thought found with that id" });
@@ -75,6 +75,7 @@ async deleteThought(req, res) {
         reactionBody: req.body.reactionBody,
         username: req.body.username,
       };
+      console.log(addReaction)
    // (don't forget to push the created reaction to the associated thoughts
       targetThought.reactions.push(addReaction);
       //save reaction to the thought
